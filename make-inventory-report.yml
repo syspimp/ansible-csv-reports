@@ -1,0 +1,24 @@
+- name:  create csv report of ansible inventory
+  hosts: all
+  # fact gathering required
+  gather_facts: yes
+  vars:
+    report_dir: "{{ playbook_dir }}/reports"
+  tasks:
+  - name: "create {{ report_dir }} directory"
+    file:
+      path: "{{ report_dir }}"
+      state: directory
+    delegate_to: localhost
+
+  - name: "run individual reports, place in {{ report_dir }}"
+    template:
+      src: "templates/host-report.csv.j2"
+      dest: "reports/{{ inventory_hostname }}.csv"
+    delegate_to: localhost
+    
+  - name: "run the summary report, save as {{ report_dir }}/summary-report.csv"
+    template:
+      src: "templates/all-report.csv.j2"
+      dest: "reports/summary-report.csv"
+    delegate_to: localhost
