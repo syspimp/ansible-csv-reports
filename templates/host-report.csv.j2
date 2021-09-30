@@ -1,2 +1,2 @@
-hostname, cpu cores, cpu count, vcpus, ram (mb), disk size
-{{ inventory_hostname }},{{ ansible_facts.processor_cores }},{{ ansible_facts.processor_count }},{{ ansible_facts.processor_vcpus }},{{ ansible_facts.memtotal_mb }},0
+hostname, cpu cores, cpu count, vcpus, ram (mb), root disk size
+{{ inventory_hostname }},{{ ansible_facts.processor_cores }},{{ ansible_facts.processor_count }},{{ ansible_facts.processor_vcpus }},{{ ansible_facts.memtotal_mb }},{{ rootmount }}

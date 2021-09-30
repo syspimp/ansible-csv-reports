@@ -11,6 +11,12 @@
       state: directory
     delegate_to: localhost
 
+  - name: set the root mount fact
+    set_fact:
+      rootmount: "{{ item.block_total }}"
+    loop: "{{ ansible_mounts }}"
+    when: item.mount == '/'
+
   - name: "run individual reports, place in {{ report_dir }}"
     template:
       src: "templates/host-report.csv.j2"

@@ -1,4 +1,3 @@
-hostname, cpu cores, cpu count, vcpus, ram (mb), disk size
+hostname, cpu cores, cpu count, vcpus, ram (mb), root disk size
 {% for host in ansible_play_hosts %}
-{{ host }},{{ hostvars[host]['ansible_facts']['processor_cores'] }},{{ hostvars[host]['ansible_facts']['processor_count'] }},{{ hostvars[host]['ansible_facts']['processor_vcpus'] }},{{ hostvars[host]['ansible_facts']['memtotal_mb'] }},0
-{% endfor %}
+{{ host }},{{ hostvars[host]['ansible_facts']['processor_cores'] }},{{ hostvars[host]['ansible_facts']['processor_count'] }},{{ hostvars[host]['ansible_facts']['processor_vcpus'] }},{{ hostvars[host]['ansible_facts']['memtotal_mb'] }},{% for mounts in hostvars[host]['ansible_mounts'] %}{% if mounts['mount'] == '/' %}{{ mounts['size_total'] }}{% endif %}{% endfor %}{{ '\n' }}{% endfor %}
