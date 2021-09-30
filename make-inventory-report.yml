@@ -13,7 +13,7 @@
 
   - name: set the root mount fact
     set_fact:
-      rootmount: "{{ item.block_total }}"
+      rootmount: "{{ item.size_total }}"
     loop: "{{ ansible_mounts }}"
     when: item.mount == '/'
 
